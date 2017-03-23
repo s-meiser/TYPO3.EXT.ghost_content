@@ -1,0 +1,5 @@
+# cat=basic/enable/010; type=string; label= Whitelist : A list of colPos to be ignored.
+whiteList = 999
+
+# cat=basic/enable/010; type=options[Header=1,Footer=2]; label= Show the results in the page module
+inPageModule = 1
