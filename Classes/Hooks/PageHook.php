@@ -26,6 +26,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use R3H6\GhostContent\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * hook to display the evaluation results in the page module
@@ -42,11 +43,15 @@ class PageHook
      */
     protected $extensionConfiguration;
 
-    protected $pageRenderer;
+    /**
+     * @var \TYPO3\CMS\Frontend\Page\PageRepository
+     */
+    protected $pageRepository;
 
     public function __construct()
     {
         $this->extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
     }
 
     /**
@@ -99,15 +104,16 @@ class PageHook
     {
         if ((int)$parentObject->MOD_SETTINGS['function'] === 1) {
 
+            $this->loadCss();
+            $this->loadJavascript();
+
+            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($parentObject);
+            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($GLOBALS['BE_USER']);
 
             $validColPos = GeneralUtility::intExplode(',', $parentObject->activeColPosList, true);
             $validColPos = array_merge($validColPos, GeneralUtility::intExplode(',', $this->extensionConfiguration->get('whiteList'), true));
 
-            $ghosts = $this->findGhosts($parentObject->pageinfo['uid'], $validColPos);
-
-            $this->loadCss();
-            $this->loadJavascript();
-
+            $ghosts = $this->findGhosts($parentObject->pageinfo['uid'], $parentObject->current_sys_language, $validColPos);
             foreach ($ghosts as &$ghost) {
                 $urlParameters = [
                     'edit' => [
@@ -149,12 +155,29 @@ class PageHook
         return $view;
     }
 
-    protected function findGhosts($pageUid, array $validColPos)
+    protected function findGhosts($pageUid, $language, array $validColPos)
     {
         $where = 'pid='.(int) $pageUid;
         $where .= ' AND colPos NOT IN('.join(',', $validColPos).')';
         $where .= ' AND deleted=0'; // Only enable field we have to take care off in be mode!
-        return $this->getDatabaseConnection()->exec_SELECTgetRows('*', 'tt_content', $where);
+        $where .= ' AND sys_language_uid='.$language;
+
+        $records =  $this->getDatabaseConnection()->exec_SELECTgetRows('*', 'tt_content', $where);
+
+        if ($GLOBALS['BE_USER']->workspace) {
+            foreach ($records as &$record) {
+                BackendUtility::workspaceOL('tt_content', $record);
+                // $this->pageRepository->init(true);
+                // $this->pageRepository->versioningPreview = true;
+                // $this->pageRepository->versioningWorkspaceId = $GLOBALS['BE_USER']->workspace;
+                // $this->pageRepository->versionOL('tt_content', $record);
+                // if (is_array($record)) {
+                //     $records[$key] = $record;
+                // }
+            }
+        }
+
+        return array_filter($records);
     }
 
     /**

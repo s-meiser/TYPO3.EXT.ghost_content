@@ -1,0 +1,57 @@
+{
+    "name": "r3h6/ghost-content",
+    "type": "typo3-cms-extension",
+    "description": "Shows content elements with an invalid colPos.",
+    "homepage": "https://github.com/r3h6",
+    "version": "1.0.0",
+    "require": {
+        "typo3/cms": "^8.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6",
+        "mikey179/vfsStream": "~1.6.0",
+        "codeception/codeception": "^2.2",
+        "se/selenium-server-standalone": "~2.53",
+        "7elix/styleguide": "~8.0.0",
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "fiunchinho/phpunit-randomizer": "~2.0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "R3H6\\GhostContent\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "R3H6\\GhostContent\\Tests\\": "Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
+            "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+        }
+    },
+    "replace": {
+        "ghost_content": "self.version",
+        "typo3-ter/ghost-content": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "preferred-install": {
+            "typo3/cms": "source"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .Build/web/typo3conf/ext/",
+            "[ -L .Build/web/typo3conf/ext/ghost_content ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/ghost_content"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/web"
+        }
+    }
+}
