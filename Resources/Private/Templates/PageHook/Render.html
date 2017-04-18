@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{ghosts}">
+
+    <div class="typo3-messages ghost-messages">
+        <div class="alert alert-warning">
+            <div class="media">
+                <div class="media-left"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-warning fa-stack-1x"></i></span></div>
+                <div class="media-body">
+                    <h4 class="alert-title">Ghosts</h4>
+                    <div class="row">
+                        <f:for each="{ghosts}" as="ghost">
+                            <f:render partial="Ghost" arguments="{ghost: ghost}" />
+                        </f:for>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:if>
+
+</html>

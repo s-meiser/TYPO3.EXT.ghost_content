@@ -5,3 +5,36 @@
 .tx-ghostcontent .t3-page-ce .t3-page-ce-header {
     background-color: #e8813d;
 }*/
+
+.ghost-messages > .alert > .media,
+.ghost-messages > .alert > .media > .media-body {
+    overflow: visible !important;
+}
+.ghost-content .media-left,
+.ghost-content .media-body,
+.ghost-content .media-right {
+    white-space: nowrap;
+}
+
+.ghost-content .ellipsis {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ghost-content .icon-color {
+    fill: #FFF;
+}
+.ghost-content .media-body {
+    position: relative;
+}
+.ghost-content .media-body .btn-overlay {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.ghost-content .media-body:hover .btn-overlay {
+    display: block;
+}
