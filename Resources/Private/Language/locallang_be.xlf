@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="Thu, 30 Mar 2017 10:31:35 +0000">
+        <header />
+        <body>
+            <trans-unit id="ghost.no_title" approved="yes">
+                <source>Element [%s]</source>
+            </trans-unit>
+            <trans-unit id="pagehook.title" approved="yes">
+                <source>Not assigned content</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

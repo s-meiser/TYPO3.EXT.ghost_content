@@ -1,7 +1,7 @@
 <?php
 
 /***************************************************************
- * Extension Manager/Repository config file for ext "frp_template_neo1".
+ * Extension Manager/Repository config file for ext "ghost_content".
  *
  * Auto generated 10-03-2017 10:41
  *
@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
     'title' => 'Ghost content',
-    'description' => 'Shows content elements with an invalid colPos.',
+    'description' => 'Shows not assigned content elements in the page module.',
     'category' => 'backend',
     'author' => 'R3 H6',
     'author_email' => 'r3h6@outlook.com',
@@ -22,10 +22,10 @@ $EM_CONF[$_EXTKEY] = array(
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.0.1',
+    'version' => '1.0.0',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '8.6.0-8.9.99',
+            'typo3' => '8.7.0-8.9.99',
         ),
         'conflicts' => array(
         ),

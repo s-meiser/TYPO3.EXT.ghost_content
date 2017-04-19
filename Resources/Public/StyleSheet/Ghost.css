@@ -5,3 +5,43 @@
 .tx-ghostcontent .t3-page-ce .t3-page-ce-header {
     background-color: #e8813d;
 }*/
+
+.ghost-messages > .alert > .media,
+.ghost-messages > .alert > .media > .media-body {
+    overflow: visible !important;
+}
+.ghost-content .media-left,
+.ghost-content .media-body,
+.ghost-content .media-right {
+    /*white-space: nowrap;*/
+}
+
+.ghost-content {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    padding: 5px 60px 5px 0;
+    white-space: nowrap;
+    cursor: move;
+    background-color: #e8a33d;
+}
+.ghost-content .icon-color {
+    fill: #FFF;
+}
+
+.ghost-content .icon-layer {
+    /*display: block;*/
+    position: absolute;
+    right: 0;
+    top: 5px;
+    background-color: #e8a33d;
+    padding-left: 10px;
+}
+.ghost-content .icon {
+    padding: 3px;
+}
+.ghost-content .icon-action {
+    display: inline-block;
+}

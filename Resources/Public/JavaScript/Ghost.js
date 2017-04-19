@@ -13,12 +13,23 @@
 
 /**
  * Ghost
+ *
+ * Overwrite default DragDrop ajax behavior.
+ * After dropping a ghost-element we have to refresh the page in order to display it.
  */
-define(['jquery', 'TYPO3/CMS/Backend/LayoutModule/DragDrop'], function ($, DragDrop) {
+define(['jquery',
+        'TYPO3/CMS/Backend/LayoutModule/DragDrop',
+        'TYPO3/CMS/Backend/Icons'
+    ], function ($, DragDrop, Icons) {
     'use strict';
 
-    var refresh = function (parameters) {
+    var refresh = function ($draggableElement, parameters) {
         require(['TYPO3/CMS/Backend/AjaxDataHandler'], function (DataHandler) {
+
+            Icons.getIcon('spinner-circle-light', Icons.sizes.small).done(function(icon) {
+                $('[class*="icon-mimetypes"]', $draggableElement).replaceWith(icon);
+            });
+
             DataHandler.process(parameters).done(function (result) {
                 if (!result.hasErrors) {
                     self.location.reload(true);
@@ -29,8 +40,9 @@ define(['jquery', 'TYPO3/CMS/Backend/LayoutModule/DragDrop'], function ($, DragD
 
     DragDrop.__ajaxAction = DragDrop.ajaxAction;
     DragDrop.ajaxAction = function($droppableElement, $draggableElement, parameters, $copyAction, $pasteAction){
-        if ($draggableElement.hasClass('is-ghost')) {
-            refresh(parameters);
+
+        if ($draggableElement.hasClass('js-ghost')) {
+            refresh($draggableElement, parameters);
         } else {
             DragDrop.__ajaxAction($droppableElement, $draggableElement, parameters, $copyAction, $pasteAction);
         }
