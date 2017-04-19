@@ -39,6 +39,13 @@ class LanguageIconViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
     protected $escapeOutput = false;
 
     /**
+     * Cached dbList instances
+     *
+     * @var array
+     */
+    protected static $dbList = [];
+
+    /**
      * Arguments initialization.
      */
     public function initializeArguments()
@@ -47,16 +54,30 @@ class LanguageIconViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
         $this->registerArgument('addAsAdditionalText', 'boolean', 'addAsAdditionalText', false, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function render()
     {
         $record = $this->arguments['record'];
         $languageUid = (string) $record['sys_language_uid'];
 
-        /** @var \R3H6\GhostContent\Wrapper\RecordList $dbList */
-        $dbList = GeneralUtility::makeInstance(RecordList::class);
-        $dbList->setId($record['pid']);
-        $dbList->initializeLanguages();
+        return $this->getDbList((int)$record['pid'])->languageFlag($languageUid, $this->arguments['addAsAdditionalText']);
+    }
 
-        return $dbList->languageFlag($languageUid, $this->arguments['addAsAdditionalText']);
+    /**
+     * @param  int $id
+     * @return \R3H6\GhostContent\Wrapper\RecordList
+     */
+    protected function getDbList($id)
+    {
+        if (!isset(static::$dbList[$id])) {
+            /** @var \R3H6\GhostContent\Wrapper\RecordList $dbList */
+            $dbList = GeneralUtility::makeInstance(RecordList::class);
+            $dbList->setId($id);
+            $dbList->initializeLanguages();
+            static::$dbList[$id] = $dbList;
+        }
+        return static::$dbList[$id];
     }
 }

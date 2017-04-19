@@ -22,6 +22,11 @@ use TYPO3\CMS\Backend\RecordList\AbstractRecordList;
  */
 class RecordList extends AbstractRecordList
 {
+    /**
+     * Sets the id
+     *
+     * @param int $id
+     */
     public function setId($id)
     {
         $this->id = (int) $id;

@@ -3,16 +3,15 @@
       xmlns:ghost="http://typo3.org/ns/R3H6/GhostContent/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<div class="ghost-content col-xs-12 col-sm-6 col-md-3 t3js-page-ce t3js-page-ce-sortable ui-draggable ui-draggable-handle" id="element-tt_content-{ghost.uid}" data-table="tt_content" data-uid="{ghost.uid}">
+<div class="js-ghost col-xs-12 col-sm-6 col-md-4 col-lg-3 t3js-page-ce t3js-page-ce-sortable ui-draggable ui-draggable-handle" id="element-tt_content-{ghost.uid}" data-table="tt_content" data-uid="{ghost.uid}">
     <div class="media t3-page-ce-dragitem t3js-page-ce-draghandle" id="{ghost.uniqId}">
-            <div class="media-left">
-                <a href="{ghost.openAction}">
-                    <core:iconForRecord table="tt_content" row="{ghost}" />
-                </a>
+            <div class="ghost-content">
+
+                <core:iconForRecord table="tt_content" row="{ghost}" />
+
                 <ghost:languageIcon record="{ghost}" />
-            </div>
-            <div class="media-body">
-                <span class="ellipsis">
+
+                <span class="ghost-title">
                     <f:format.crop maxCharacters="100" append="...">
                         <f:spaceless>
                             <f:if condition="{ghost.header}">
@@ -25,7 +24,7 @@
                                             {ghost.bodytext}
                                         </f:then>
                                         <f:else>
-                                            Element [{ghost.uid}]
+                                            <f:translate key="LLL:EXT:ghost_content/Resources/Private/Language/locallang_be.xlf:ghost.no_title" arguments="{0: ghost.uid}" />
                                         </f:else>
                                     </f:if>
                                 </f:else>
@@ -33,19 +32,19 @@
                         </f:spaceless>
                     </f:format.crop>
                 </span>
-                <div class="btn-overlay">
-                            <a class=""
-                               href="{ghost.openAction}">
-                                <core:icon identifier="actions-open" />
-                            </a>
-                            <a class="t3js-modal-trigger"
-                               href="{ghost.deleteAction}"
-                               data-severity="warning"
-                               data-title="Delete this record?"
-                               data-content="Are you sure you want to delete this record?"
-                               data-button-close-text="Cancel" title="Delete">
-                                <core:icon identifier="actions-edit-delete" />
-                            </a>
+                <div class="icon-layer">
+                    <a class="icon-action"
+                       href="{ghost.openAction}">
+                        <svg class="icon-size-small" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g class="icon-color"><path d="M9.293 3.293l-8 8A.997.997 0 0 0 1 12v3h3c.265 0 .52-.105.707-.293l8-8-3.414-3.414zM8.999 5l.5.5-5 5-.5-.5 5-5zM4 14H3v-1H2v-1l1-1 2 2-1 1zM13.707 5.707l1.354-1.354a.5.5 0 0 0 0-.707L12.354.939a.5.5 0 0 0-.707 0l-1.354 1.354 3.414 3.414z"/></g></svg>
+                    </a>
+                    <a class="icon-action t3js-modal-trigger"
+                       href="{ghost.deleteAction}"
+                       data-severity="warning"
+                       data-title="Delete this record?"
+                       data-content="Are you sure you want to delete this record?"
+                       data-button-close-text="Cancel" title="Delete">
+                        <svg class="icon-size-small" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g class="icon-color"><path d="M7 5H6v8h1zM10 5H9v8h1z"/><path d="M13 3h-2v-.75C11 1.56 10.44 1 9.75 1h-3.5C5.56 1 5 1.56 5 2.25V3H3v10.75c0 .69.56 1.25 1.25 1.25h7.5c.69 0 1.25-.56 1.25-1.25V3zm-7-.75A.25.25 0 0 1 6.25 2h3.5a.25.25 0 0 1 .25.25V3H6v-.75zm6 11.5a.25.25 0 0 1-.25.25h-7.5a.25.25 0 0 1-.25-.25V4h8v9.75z"/><path d="M13.5 4h-11a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1z"/></g></svg>
+                    </a>
                 </div>
             </div>
 
@@ -53,31 +52,3 @@
 </div>
 
 </html>
-
-<f:comment>
-
-
-    <div class="t3-page-ce-header-icons-left"><a href="#" class="t3js-contextmenutrigger" data-table="tt_content" data-uid="36"><span data-toggle="tooltip" data-title="  id=36" data-html="true" data-placement="right" data-original-title="" title=""><span class="t3js-icon icon icon-size-small icon-state-default icon-mimetypes-x-content-text" data-identifier="mimetypes-x-content-text">
-    <span class="icon-markup">
-<img src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/mimetypes/mimetypes-x-content-text.svg" width="16" height="16">
-    </span>
-
-</span></span></a> <span title="German (Default)"><span class="t3js-icon icon icon-size-small icon-state-default icon-flags-de" data-identifier="flags-de">
-    <span class="icon-markup">
-<img src="/typo3/sysext/core/Resources/Public/Icons/Flags/SVG/DE.svg" width="16" height="16">
-    </span>
-
-</span></span></div>
-
-
-
-<a class="btn btn-default t3js-modal-trigger" href="/typo3/index.php?route=%2Frecord%2Fcommit&amp;token=e11f962feb74d3123f545ff42eef514d41ee8d3c&amp;prErr=1&amp;uPT=1&amp;cmd[tt_content][36][delete]=1&amp;redirect=%2Ftypo3%2Findex.php%3FM%3Dweb_layout%26moduleToken%3D8fe0f2470985745a34423676d7c29253773d7077%26id%3D23"
-   data-severity="warning" data-title="Delete this record?" data-content="Are you sure you want to delete this record?" data-button-close-text="Cancel" title="Delete"><span class="t3js-icon icon icon-size-small icon-state-default icon-actions-edit-delete" data-identifier="actions-edit-delete">
-    <span class="icon-markup">
-<img src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-edit-delete.svg" width="16" height="16">
-    </span>
-
-</span></a>
-
-
-</f:comment>

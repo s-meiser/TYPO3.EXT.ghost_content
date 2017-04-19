@@ -2,18 +2,18 @@
 
 namespace R3H6\GhostContent\Hooks;
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
+/*                                                                        *
+ * This script is part of the TYPO3 project - inspiring people to share!  *
+ *                                                                        *
+ * TYPO3 is free software; you can redistribute it and/or modify it under *
+ * the terms of the GNU General Public License version 3 as published by  *
+ * the Free Software Foundation.                                          *
+ *                                                                        *
+ * This script is distributed in the hope that it will be useful, but     *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
+ * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General      *
+ * Public License for more details.                                       *
+ *                                                                        */
 
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -28,13 +28,12 @@ use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
- * hook to display the evaluation results in the page module
- *
- * Class pageHook
+ * Hook to display not assigned content.
  */
 class PageHook
 {
     const EXT_KEY = 'ghost_content';
+    const MODUL_FUNCTION_COLUMNS = 1;
 
     /**
      * @var \R3H6\GhostContent\Configuration\ExtensionConfiguration
@@ -70,7 +69,7 @@ class PageHook
      */
     protected function loadJavascript()
     {
-        $addRequireJsFile = '../typo3conf/ext/ghost_content/Resources/Public/JavaScript/Ghost.js';
+        $addRequireJsFile = 'TYPO3/CMS/GhostContent/Ghost';
 
         $this->getPageRenderer()->loadRequireJsModule($addRequireJsFile);
     }
@@ -96,13 +95,17 @@ class PageHook
      */
     public function render(array $params, PageLayoutController $parentObject)
     {
-        if ((int)$parentObject->MOD_SETTINGS['function'] === 1) {
+        if ((int)$parentObject->MOD_SETTINGS['function'] === self::MODUL_FUNCTION_COLUMNS) {
 
 
             $validColPos = GeneralUtility::intExplode(',', $parentObject->activeColPosList, true);
             $validColPos = array_merge($validColPos, GeneralUtility::intExplode(',', $this->extensionConfiguration->get('whiteList'), true));
 
-            $ghosts = $this->findGhosts($parentObject->pageinfo['uid'], $validColPos);
+            $ghosts = $this->findGhosts($parentObject->pageinfo['uid'], $validColPos, $parentObject->current_sys_language);
+
+            if (empty($ghosts)) {
+                return;
+            }
 
             $this->loadCss();
             $this->loadJavascript();
@@ -114,9 +117,9 @@ class PageHook
                             $ghost['uid'] => 'edit',
                         ],
                     ],
-                    'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI') . '#element-tt_content-' . $ghost['uid'],
+                    'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI'),
                 ];
-                $ghost['openAction'] = BackendUtility::getModuleUrl('record_edit', $urlParameters) . '#element-tt_content-' . $row['uid'];
+                $ghost['openAction'] = BackendUtility::getModuleUrl('record_edit', $urlParameters);
                 $ghost['deleteAction'] = BackendUtility::getLinkToDataHandlerAction('&cmd[tt_content]['.$ghost['uid'].'][delete]=1');
                 $ghost['uniqId'] = StringUtility::getUniqueId();
             }
@@ -148,10 +151,11 @@ class PageHook
         return $view;
     }
 
-    protected function findGhosts($pageUid, array $validColPos)
+    protected function findGhosts($pageUid, array $validColPos, $languageUid)
     {
         $where = 'pid='.(int) $pageUid;
         $where .= ' AND colPos NOT IN('.join(',', $validColPos).')';
+        $where .= ' AND sys_language_uid='.(int) $languageUid;
         $where .= ' AND deleted=0'; // Only enable field we have to take care off in be mode!
         return $this->getDatabaseConnection()->exec_SELECTgetRows('*', 'tt_content', $where);
     }
