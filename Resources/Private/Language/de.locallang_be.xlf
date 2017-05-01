@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-05-01T13:37:02Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="ghost.no_title" approved="yes">
+			<source>Element [%s]</source>
+			<target>Element [%s]</target>
+		</trans-unit>
+		<trans-unit id="pagehook.title" approved="yes">
+			<source>Not assigned content</source>
+			<target>Nicht zugewiesener Inhalt</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>

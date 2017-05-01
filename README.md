@@ -19,11 +19,10 @@ You can change the behavior of the extension over some extension settings.
 ## FAQ
 
 <dl>
-    <dt>Why you don't render content elements with the regular preview</dt>
-    <dd>Unfortunately TYPO3 doesn't offer an usefull API to render single content elements in the backend.</dd>
-
-    <dt>Why you reload the page after drop a not assigned content element.</dt>
-    <dd>This is the simplest way in order to render the preview.</dd>
+<dt>Why you don't render content elements with the regular preview</dt>
+<dd>Unfortunately TYPO3 doesn't offer an usefull API to render single content elements in the backend.</dd>
+<dt>Why you reload the page after drop a not assigned content element.</dt>
+<dd>This is the simplest way in order to render the preview.</dd>
 </dl>
 
 
