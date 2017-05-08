@@ -26,7 +26,7 @@ define(['jquery',
     var refresh = function ($draggableElement, parameters) {
         require(['TYPO3/CMS/Backend/AjaxDataHandler'], function (DataHandler) {
 
-            Icons.getIcon('spinner-circle-light', Icons.sizes.small).done(function(icon) {
+            Icons.getIcon('spinner-circle', Icons.sizes.small).done(function(icon) {
                 $('[class*="icon-mimetypes"]', $draggableElement).replaceWith(icon);
             });
 
