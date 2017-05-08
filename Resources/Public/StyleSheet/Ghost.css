@@ -1,19 +1,6 @@
-/*.tx-ghostcontent .t3-grid-cell {
-    background-color: #e8a33d;
-    border-color: #fafafa;
-}
-.tx-ghostcontent .t3-page-ce .t3-page-ce-header {
-    background-color: #e8813d;
-}*/
-
-.ghost-messages > .alert > .media,
-.ghost-messages > .alert > .media > .media-body {
+.ghost-messages .media,
+.ghost-messages .media > .media-body {
     overflow: visible !important;
-}
-.ghost-content .media-left,
-.ghost-content .media-body,
-.ghost-content .media-right {
-    /*white-space: nowrap;*/
 }
 
 .ghost-content {
@@ -22,22 +9,23 @@
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
-    padding: 5px 60px 5px 0;
+    padding: 5px 60px 5px 5px;
     white-space: nowrap;
     cursor: move;
-    background-color: #e8a33d;
+    background-color: #fbefdd;
+    border: 1px solid #e8a33d;
+    border-radius: 2px;
+    margin-bottom: 5px;
 }
 .ghost-content .icon-color {
     fill: #FFF;
 }
 
 .ghost-content .icon-layer {
-    /*display: block;*/
     position: absolute;
     right: 0;
     top: 5px;
-    background-color: #e8a33d;
-    padding-left: 10px;
+    padding-right: 5px;
 }
 .ghost-content .icon {
     padding: 3px;
