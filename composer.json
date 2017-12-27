@@ -2,8 +2,8 @@
     "name": "r3h6/ghost-content",
     "type": "typo3-cms-extension",
     "description": "Shows not assigned content elements in the page module.",
-    "homepage": "https://github.com/r3h6",
-    "version": "1.0.3",
+    "homepage": "https://github.com/r3h6/TYPO3.EXT.ghost_content",
+    "license": "GPL-2.0+",
     "require": {
         "typo3/cms": "^8.7.0"
     },
