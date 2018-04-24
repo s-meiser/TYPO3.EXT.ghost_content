@@ -5,7 +5,10 @@
     "homepage": "https://github.com/r3h6/TYPO3.EXT.ghost_content",
     "license": "GPL-2.0+",
     "require": {
-        "typo3/cms": "^8.7.0"
+        "typo3/cms-backend": "^8.7.0",
+        "typo3/cms-core": "^8.7.0",
+        "typo3/cms-extbase": "^8.7.0",
+        "typo3/cms-fluid": "^8.7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.6",
