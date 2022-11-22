@@ -17,6 +17,7 @@ namespace R3H6\GhostContent\Hooks;
 
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -153,18 +154,18 @@ class PageHook
 
     protected function findGhosts($pageUid, array $validColPos, $languageUid)
     {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+        $queryBuilder->getRestrictions()->removeAll();
+
         $where = 'pid='.(int) $pageUid;
         $where .= ' AND colPos NOT IN('.join(',', $validColPos).')';
         $where .= ' AND sys_language_uid='.(int) $languageUid;
         $where .= ' AND deleted=0'; // Only enable field we have to take care off in be mode!
-        return $this->getDatabaseConnection()->exec_SELECTgetRows('*', 'tt_content', $where);
-    }
 
-    /**
-     * @return TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
+        $query = $queryBuilder
+            ->select('*')
+            ->from('tt_content')
+            ->where($where);
+        return $query->execute()->fetchAll();
     }
 }
